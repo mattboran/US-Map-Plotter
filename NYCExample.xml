@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<queryresult success='true'
+    error='false'
+    numpods='5'
+    datatypes='City,Crime'
+    timedout='Data,Percent,Unit,AtmosphericProperties,UnitInformation,Music,Geometry'
+    timedoutpods=''
+    timing='2.903'
+    parsetiming='1.066'
+    parsetimedout='false'
+    recalculate='http://www5b.wolframalpha.com/api/v2/recalc.jsp?id=MSPa15721df9917i4d36cch10000347b6iai7g0eedh34194928489543797930'
+    id='MSPa15731df9917i4d36cch1000050f1ba284badfc51'
+    host='http://www5b.wolframalpha.com'
+    server='56'
+    related='http://www5b.wolframalpha.com/api/v2/relatedQueries.jsp?id=MSPa15741df9917i4d36cch100002b2c260a9b9a76hc4194928489543797930'
+    version='2.6'>
+ <pod title='Input interpretation'
+     scanner='Identity'
+     id='Input'
+     position='100'
+     error='false'
+     numsubpods='1'>
+  <subpod title=''>
+   <plaintext>New York City, New York | rate of murder and nonnegligent manslaughter</plaintext>
+  </subpod>
+ </pod>
+ <pod title='Result'
+     scanner='Data'
+     id='Result'
+     position='200'
+     error='false'
+     numsubpods='1'
+     primary='true'>
+  <subpod title=''>
+   <plaintext>5.61 crimes per 100 000 people per year  (2009 estimate)</plaintext>
+  </subpod>
+ </pod>
+ <pod title='Comparisons'
+     scanner='Data'
+     id='VerticalComparisons:MurderNonnegligentManslaughterRate:CrimeData'
+     position='300'
+     error='false'
+     numsubpods='3'>
+  <subpod title=''>
+   <plaintext>one crime per person every 17825 years</plaintext>
+  </subpod>
+  <subpod title=''>
+   <plaintext>1.6  ×  New York average</plaintext>
+  </subpod>
+  <subpod title=''>
+   <plaintext>1.2  ×  national average</plaintext>
+  </subpod>
+ </pod>
+ <pod title='Murder and nonnegligent manslaughter rate history'
+     scanner='Data'
+     id='History:MurderNonnegligentManslaughterRate:CrimeData'
+     position='400'
+     error='false'
+     numsubpods='1'>
+  <subpod title=''>
+   <plaintext></plaintext>
+  </subpod>
+  <states count='2'>
+   <state name='Crimes'
+       input='History:MurderNonnegligentManslaughterRate:CrimeData__Crimes' />
+   <state name='Log scale'
+       input='History:MurderNonnegligentManslaughterRate:CrimeData__Log scale' />
+  </states>
+ </pod>
+ <pod title='Overall crime statistics'
+     scanner='Data'
+     id='CrimeInformation:MurderNonnegligentManslaughterRate:CrimeData'
+     position='500'
+     error='false'
+     numsubpods='1'>
+  <subpod title=''>
+   <plaintext>total rate of crime | 2242 crimes/100000 people/yr  (2009 estimate)
+total number of crimes | 188357 crimes per year  (2009 estimate)
+(UCR Part I offenses)</plaintext>
+  </subpod>
+  <states count='1'>
+   <state name='Show chart'
+       input='CrimeInformation:MurderNonnegligentManslaughterRate:CrimeData__Show chart' />
+  </states>
+  <infos count='1'>
+   <info>
+    <units count='1'>
+     <unit short='crimes/100000 people/yr'
+         long='crimes per 100 000 people per year' />
+    </units>
+   </info>
+  </infos>
+ </pod>
+ <sources count='2'>
+  <source url='http://www.wolframalpha.com/sources/CityDataSourceInformationNotes.html'
+      text='City data' />
+  <source url='http://www.wolframalpha.com/sources/CrimeDataSourceInformationNotes.html'
+      text='Crime data' />
+ </sources>
+</queryresult>
