@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<data>
+	<city>
+		<name>New York</name>
+		<state>New York</state>
+		<murders>5.61</murders>
+	</city>
+	<city>
+		<name>Chicago</name>
+		<state>Illinois</state>
+		<murders>3.0</murders>
+	</city>
+</data>
