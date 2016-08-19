@@ -7,10 +7,12 @@ This is a python script that queries the Wolfram Alpha API to populate a data se
 APP ID-
 ' TT8EJW-E7K35T3VUA '
 
+http://api.wolframalpha.com/v2/query?appid=TT8EJW-E7K35T3VUA&input=murder%20rate%20in%20springfield%2C%20massachussets&format=plaintext
+
 '''
 
 import collections
-import xml.etree.cElementTree as etree
+import lxml.etree as etree #includes XPath
 import requests 
 
 def read_city_names(fname):
@@ -27,14 +29,64 @@ def read_city_names(fname):
 			places.append(location(text[0], text[1]))
 	return places
 	
-def make_api_call(question):
+def make_api_call(city, state, query):
 	#
-	#	This function makes an API call to Wolfram Alpha using 'question' as the query
+	#	This function makes an API call to Wolfram Alpha using 'query' as the query, about 'city, state'
+	#	query is a space-separated series of words i.e. 'murder rate' or 'tornado frequency' etc
 	#	It returns a string output - in XML
 	#
+	#	http://api.wolframalpha.com/v2/query?appid=TT8EJW-E7K35T3VUA&input=murder%20rate%20in%20springfield%2C%20massachussets&format=plaintext
+	#
+	
+	url = 'http://api.wolframalpha.com/v2/query?appid=TT8EJW-E7K35T3VUA&input='
+	
+	#assemble the query URL
+	_query = query.split(' ')
+	for word in _query:
+		url += (word + '%20')
+	
+	_city = city.split(' ')
+	for word in _city:
+		url += (word+'%20')
+	url = url[:-1]
+	url += 'C%20'
+	
+	_state = state.split(' ')
+	for word in _state:
+		url += (word+'%20')
+	url = url[:-3]
+	url += '&format=plaintext'
+	
+	#print attempt to console
+	print("Making api call for \'%s in %s, %s\' " % (query, city, state))
+	print("The URL we're hitting is %s" % (url))
+	#make request to server
+	api_call = requests.get(url, stream=True)
+	if(api_call.status_code != 200):
+		print("API call failed, status code %s " % (str(api_call.status_code)))
+		return False
+	#else, API call went successfully and returned a result of 'content-type' text/xml in charset=utf-8
+	else:	
+		with open('temp.dat', 'wb') as fd:		#write results to temp.dat
+			for chunk in api_call.iter_content(256):
+				fd.write(chunk)
+
+	if(query == 'murder rate'):
+		query = 'murders'
+	#first check if the city, alone is in the cache. if not, let's add it
+	if(check_cache(city, 'no_query') == 'no_entry'):
+		add_city_to_cache(city)
+	#we've added the city or it was already there. is the state field populated?
+	if(check_cache(city, 'state') == 'no_entry'):
+		add_entry_to_city(city, 'state', state, True)
+	#now add the property from the query we made
+	if(check_cache(city, query) == 'no_entry'):
+		add_entry_to_city(city, query, murder_rate_from_file('temp.dat'), True)
+	
 	return True
 
 def  murder_rate_from_file(fname):
+	#
 	#	This function gets the murder rate per 100,000 people from a file, 'fname' that is in XML format
 	#
 	i = 0
@@ -51,7 +103,7 @@ def  murder_rate_from_file(fname):
 def check_cache(cityname, query):
 	#
 	#	This function checks cache.xml for an entry 'city' in 'cities', then goes to 'data' in 'city' and checks if there's an entry for 'query'
-	#	 if it doesn't find it, it returns 'no_entry'
+	#	 if it doesn't find it, it returns 'no_entry'. Query can be 'no_query' to just check cache for the city
 	#
 	tree = etree.parse('cache.xml')
 	root = tree.getroot()
@@ -60,32 +112,86 @@ def check_cache(cityname, query):
 		for element in city:
 			if(element.tag == 'name'):
 				if(element.text == cityname):
-					print(element.text)
 					one_city = True
+					if(query=='no_query'):
+						return element.text
 			if(element.tag == query) and (one_city):	#one_city is only true for a single 'city' parent element; the city we search for 
 				return element.text
+				
 	return 'no_entry'
 	
 def add_city_to_cache(city):
 	#
 	#	This function reads cache.xml and writes a new entry <city name='city'> </city>
 	#
-	doc = etree.parse('cache.xml')
-	root = doc.getroot()
+	
+	#in order to prettify the output, we need to do the following with the XML parser
+	parser = etree.XMLParser(remove_blank_text=True)
+	tree = etree.parse('cache.xml', parser)
+	root = tree.getroot()
+	for city_elements in root.iter('name'):
+		if (city_elements.text == city):
+			print("%s is already in the cache as a city entry!" % (city))
+			return False
+			
 	num_cities = len(root.findall('city'))
-	e_city = Element('city')
-	e_name = Element('name')
+	
+	e_city = etree.Element('city')
+	e_name = etree.Element('name')
 	e_name.text = city
 	e_city.append(e_name)
+	
 	root.insert(num_cities, e_city)
-	doc.write('cache.xml', xml_declaration=True)
+	tree.write('cache.xml', pretty_print=True)
 	
-	
-locations = read_city_names('Cities.txt')
-for place in locations:
-	print('City: ', place[0], ', ', place[1])
+	return True
 
-print(murder_rate_from_file('NYCExample.xml'))
-print("Checking cache for New York City, murder: ")
-print(check_cache('Chicago', 'murders'))
-add_city_to_cache('Gadsden')
+def add_entry_to_city(city, property, value, over_write):
+	#
+	#	This method adds a property (attribute) and value (text) as sub-element to the city element specified. We assume there are not any duplicate
+	#	city names. At this point. This will be ameliorated at a later point, so we can have similar-named cities from different states
+	#	
+	#	over_write may be either 'True' or 'False'; if False, property is not overwritten if it already exists
+	#
+	#	This may be slow
+	#
+	parser = etree.XMLParser(remove_blank_text=True)
+	tree = etree.parse('cache.xml', parser)
+	root = tree.getroot()
+	e_prop = etree.Element(property)
+	e_prop.text = value
+	#first check to see if the city is in the list
+	#we will use the XPath object 'finder' to utilize XPath for this purpose
+	finder = tree.xpath('//data/city/name/text()')
+	has_element = False
+	
+	if city not in finder:
+		print("City %s not found in cache file." % (city))
+		return False
+	else:
+		i = 0
+		for cityname in finder:
+			if cityname==city:
+				break
+			else:
+				i += 1
+	#get the parent 'city' block as city_root
+	city_root = finder[i].getparent().getparent()
+	#cycle through its children, re-assigning value if over_write = True
+	for element in city_root: 
+		if(element.tag == property):
+			has_element = True
+			if(not over_write):
+				return False
+			else:
+				element.text = value
+				break
+		
+	if(not has_element):
+		city_root.append(e_prop)
+	
+	tree.write('cache.xml', pretty_print=True)
+	return True
+			
+locations = read_city_names('Cities.txt')
+make_api_call('Los Angeles', 'California', 'murder rate')
