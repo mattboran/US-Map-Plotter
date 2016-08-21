@@ -1,0 +1,100 @@
+New York, New York
+Los Angeles, California
+Chicago, Illinois
+Houston, Texas
+Philadelphia, Pennsylvania
+Phoenix, Arizona
+San Antonio, Texas
+San Diego, California
+Dallas, Texas
+San Jose, California
+Austin, Texas
+Indianapolis, Indiana
+Jacksonville, Florida
+San Francisco, California
+Columbus, Ohio
+Charlotte, North Carolina
+Fort Worth, Texas
+Detroit, Michigan
+El Paso, Texas
+Memphis, Tennessee
+Seattle, Washington
+Denver, Colorado
+Washington, D.C.
+Boston, Massachusetts
+Nashville, Tennessee
+Baltimore, Maryland
+Oklahoma City, Oklahoma
+Louisville, Kentucky
+Portland, Oregon
+Las Vegas, Nevada
+Milwaukee, Wisconsin
+Albuquerque, New Mexico
+Tucson, Arizona
+Fresno, California
+Sacramento, California
+Long Beach, California
+Kansas City, Missouri
+Mesa, Arizona
+Virginia Beach, Virginia
+Atlanta, Georgia
+Colorado Springs, Colorado
+Omaha, Nebraska
+Raleigh, North Carolina
+Miami, Florida
+Oakland, California
+Minneapolis, Minnesota
+Tulsa, Oklahoma
+Cleveland, Ohio
+Wichita, Kansas
+Arlington, Texas
+New Orleans, Louisiana
+Bakersfield, California
+Tampa, Florida
+Honolulu, Hawaii
+Aurora, Colorado
+Anaheim, California
+Santa Ana, California
+St. Louis, Missouri
+Riverside, California
+Corpus Christi, Texas
+Lexington, Kentucky
+Pittsburgh, Pennsylvania
+Anchorage, Alaska
+Stockton, California
+Cincinnati, Ohio
+St. Paul, Minnesota
+Toledo, Ohio
+Greensboro, North Carolina
+Newark, New Jersey
+Plano, Texas
+Henderson, Nevada
+Lincoln, Nebraska
+Buffalo, New York
+Jersey City, New Jersey
+Chula Vista, California
+Fort Wayne, Indiana
+Orlando, Florida
+St. Petersburg, Florida
+Chandler, Arizona
+Laredo, Texas
+Norfolk, Virginia
+Durham, North Carolina
+Madison, Wisconsin
+Lubbock, Texas
+Irvine, California
+Winston-Salem, North Carolina
+Glendale, Arizona
+Garland, Texas
+Hialeah, Florida
+Reno, Nevada
+Chesapeake, Virginia
+Gilbert, Arizona
+Baton Rouge, Louisiana
+Irving, Texas
+Scottsdale, Arizona
+North Las Vegas, Nevada
+Fremont, California
+Boise, Idaho
+San Bernardino, California
+Birmingham, Alabama

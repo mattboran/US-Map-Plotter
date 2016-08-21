@@ -29,7 +29,7 @@ def read_city_names(fname):
 			places.append(location(text[0], text[1]))
 	return places
 	
-def make_api_call(city, state, query):
+def make_api_call(city, state, query, over_write):
 	#
 	#	This function makes an API call to Wolfram Alpha using 'query' as the query, about 'city, state'
 	#	query is a space-separated series of words i.e. 'murder rate' or 'tornado frequency' etc
@@ -39,6 +39,16 @@ def make_api_call(city, state, query):
 	#
 	
 	url = 'http://api.wolframalpha.com/v2/query?appid=TT8EJW-E7K35T3VUA&input='
+	
+	#first check cache if over_write is false, and if the object exists, break and return false
+	if(not over_write):
+		newquery = ''
+		if(query == 'murder rate'):
+			newquery = 'murders'
+		else:
+			newquery = query
+		if(check_cache(city, newquery) != 'no_entry'):
+			return False
 	
 	#assemble the query URL
 	_query = query.split(' ')
@@ -75,19 +85,47 @@ def make_api_call(city, state, query):
 		query = 'murders'
 	#first check if the city, alone is in the cache. if not, let's add it
 	if(check_cache(city, 'no_query') == 'no_entry'):
+		print('Adding city %s to cache' % (city))
 		add_city_to_cache(city)
 	#we've added the city or it was already there. is the state field populated?
 	if(check_cache(city, 'state') == 'no_entry'):
+		print('Adding state %s to cache' % (state))
 		add_entry_to_city(city, 'state', state, True)
-	#now add the property from the query we made
-	if(check_cache(city, query) == 'no_entry'):
+	#now add the property from the query we made as a series of if-then's
+	if(query == 'murders'):
 		add_entry_to_city(city, query, murder_rate_from_file('temp.dat'), True)
+	elif(query == 'latitude'):
+		add_entry_to_city(city, query, latitude_longitude_from_file('temp.dat', 'latitude'), False) 
+	elif(query == 'longitude'):
+		add_entry_to_city(city, query, latitude_longitude_from_file('temp.dat', 'longitude'), False) 
+	
+	print('Adding property %s to cache' % (query))
 	
 	return True
-
+	
+def make_many_api_calls(citylist, statelist, querylist, over_write):
+	#
+	#	This function,for each city and state in citylist and statelist, each query in querylist. Before making any single city,state query
+	#	the cache should be checked. If the entry exists in cache, then the call should either be made or not made based on over_writelist
+	#
+	
+	#error handling
+	if(len(citylist) != len(statelist)):
+		print('Citylist and statelist different lengths, please check format and try again.')
+		return False
+	if(len(querylist) > 1):
+		print('Making >1 query per each city, state pair.')
+	
+	for i in range(len(citylist)):
+		if(make_api_call(citylist[i], statelist[i], querylist, over_write)):
+			print('Successfully made API call.')
+		else:
+			print('Call failed.')
+	
 def  murder_rate_from_file(fname):
 	#
-	#	This function gets the murder rate per 100,000 people from a file, 'fname' that is in XML format
+	#	This function gets the murder rate per 100,000 people from a file, 'fname' that is in XML format; this is
+	#	specific to the returns we get from querying Wolfram Alpha with 'murder rate in xxx, yyy' where xxx is city and yyy is state
 	#
 	i = 0
 	with open(fname, 'r') as f:
@@ -99,6 +137,32 @@ def  murder_rate_from_file(fname):
 			rate = element.text.split()
 			return rate[0]
 	return 0
+	
+def latitude_longitude_from_file(fname, lat_or_long):
+	#
+	#	This function gets the latitude or longitude of a city from the return from Wolfram Alpha
+	#	This function requires you to have the correct file in place with correct lat/long data.
+	#	That is, it makes the assumption you know what's in the file
+	#
+	
+	with open(fname, 'r') as f:
+		tree = etree.parse(f)
+	root = etree.getroot()
+	location = ''
+	for element in root.iter("plaintext"):
+		i += 1
+		if(i == 2):
+			loc = element.text.split(" ")
+			if(loc[0][2]=='°'):
+				location += loc[0][0:1]
+			elif(loc[0][3] == '°'):
+				location += loc[0][0:2]
+			location += '.'
+			if(loc[1][2]=='&'):
+				location += loc[1][0:1]
+			elif(loc[1][3] == '&'):
+				location += loc[1][0:2]
+	
 
 def check_cache(cityname, query):
 	#
@@ -192,6 +256,20 @@ def add_entry_to_city(city, property, value, over_write):
 	
 	tree.write('cache.xml', pretty_print=True)
 	return True
-			
-locations = read_city_names('Cities.txt')
-make_api_call('Los Angeles', 'California', 'murder rate')
+
+
+
+'''
+for i in range(len(cities)):
+	if(check_cache(cities[i], 'no_query') == 'no_entry'):
+		print('Adding city %s to cache' % (cities[i]))
+		#add_city_to_cache(city)
+	#we've added the city or it was already there. is the state field populated?
+	if(check_cache(cities[i], 'state') == 'no_entry'):
+		print('Adding state %s to cache under entry for city %s' % (states[i], cities[i]))
+		#add_entry_to_city(city, 'state', state, True)
+	#now add the property from the query we made as a series of if-then's
+	if(check_cache(cities[i], 'murders') == 'no_entry'):
+		print('Adding property %s to cache' % ('murder'))
+	#	add_entry_to_city(city, query, murder_rate_from_file('temp.dat'), True)
+'''
