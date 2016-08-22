@@ -1,7 +1,7 @@
 from DataGatherer import *
 import numpy as np
 import matplotlib.pyplot as plt
-from mpl_toolkits.basemap import Basemap
+#from mpl_toolkits.basemap import Basemap
 
 locations = read_city_names('Cities.txt')
 print(locations['city'])
