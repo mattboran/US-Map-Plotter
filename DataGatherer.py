@@ -39,6 +39,7 @@ def make_api_call(city, state, query, over_write):
 	#
 	
 	url = 'http://api.wolframalpha.com/v2/query?appid=TT8EJW-E7K35T3VUA&input='
+	query = query.lower()
 	
 	#first check cache if over_write is false, and if the object exists, break and return false
 	if(not over_write):
@@ -108,7 +109,7 @@ def make_many_api_calls(citylist, statelist, querylist, over_write):
 	#	This function,for each city and state in citylist and statelist, each query in querylist. Before making any single city,state query
 	#	the cache should be checked. If the entry exists in cache, then the call should either be made or not made based on over_writelist
 	#
-	
+	querylist = querylist.lower()
 	#error handling
 	if(len(citylist) != len(statelist)):
 		print('Citylist and statelist different lengths, please check format and try again.\n')
@@ -157,12 +158,74 @@ def latitude_longitude_from_file(fname, lat_or_long):
 			position2 = loc[1].find('\'')
 			location += loc[0][0:position1]
 			location += '.'
-			location += loc[1][0:position2]
+			if(position2 == -1):
+				location += '00'
+			else:
+				location += loc[1][0:position2]
 	
 	print('%s = %s' % (lat_or_long, location))
 	non_decimal = re.compile(r'[^\d.]+')
 	non_decimal.sub('', location)
 	return location
+
+def latitude_longitude_from_cache(lat_or_long):
+	#
+	#	This function gets a list of all lat/lons depending on 'lat_or_long' from cache.xml
+	#	Possibly problematically, this assumes every element city in cache has latitude/longitude 
+	#
+	tree = etree.parse('cache.xml')
+	root = tree.getroot()
+	
+	if(lat_or_long != 'latitude') and (lat_or_long != 'longitude'):
+		print('lat_or_long was %s, which is not latitude or longitude, exactly.' % (lat_or_long))
+		return False
+	
+	xpath_string = '//data/city/'
+	xpath_string += lat_or_long
+	query = tree.xpath(xpath_string)
+	
+	output = []
+	for returned_element in query:
+		if(lat_or_long == 'longitude'):
+			output.append('-' + returned_element.text)
+		else:
+			output.append(returned_element.text)
+	
+	return output
+		
+def property_from_cache(property):
+	#
+	#	This function returns a list of all 'property' from cache.xml
+	#	It assumes that all entry cities have 'property' else it throws an error/returns False
+	#
+	tree = etree.parse('cache.xml')
+	root = tree.getroot()
+	
+	property = property.lower()
+	
+	if(property == 'murder rate'):
+		property = 'murders'
+	elif(property == 'lat'):
+		property = 'latitude'
+	elif(property == 'lon'):
+		property = 'longitude'
+	
+	
+	xpath_string = '//data/city/'
+	xpath_string += property
+	
+	query_prop = tree.xpath(xpath_string)
+	query_numcities = len(tree.xpath('//data/city'))
+	
+	if(len(query_prop) != query_numcities):
+		print("Could not retreive %s from file because num cities != num instances of %s \n" % (property, property))
+		return False
+	
+	output = []
+	for returned_element in query_prop:
+		output.append(returned_element.text)
+	
+	return output
 	
 def check_cache(cityname, query):
 	#
@@ -171,6 +234,7 @@ def check_cache(cityname, query):
 	#
 	tree = etree.parse('cache.xml')
 	root = tree.getroot()
+	query = query.lower()
 	for city in root.iter("city"):
 		one_city = False								#one_city is used to flag when we find current name == cityname		
 		for element in city:
@@ -222,6 +286,8 @@ def add_entry_to_city(city, property, value, over_write):
 	parser = etree.XMLParser(remove_blank_text=True)
 	tree = etree.parse('cache.xml', parser)
 	root = tree.getroot()
+	property = property.lower()
+	
 	e_prop = etree.Element(property)
 	e_prop.text = value
 	#first check to see if the city is in the list

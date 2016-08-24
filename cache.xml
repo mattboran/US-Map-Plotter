@@ -7,11 +7,6 @@
     <longitude>73.56</longitude>
   </city>
   <city>
-    <name>Gadsden</name>
-    <state>Alabama</state>
-    <murders>0.4</murders>
-  </city>
-  <city>
     <name>Chicago</name>
     <state>Illinois</state>
     <murders>16.08</murders>
@@ -35,20 +30,8 @@
   <city>
     <name>Philadelphia</name>
     <state>Pennsylvania</state>
+    <latitude>40.00</latitude>
     <longitude>75.8</longitude>
     <murders>19.51</murders>
-    <latitude>40.34</latitude>
-  </city>
-  <city>
-    <name>Phoenix</name>
-    <state>Arizona</state>
-  </city>
-  <city>
-    <name>San Antonio</name>
-    <state>Texas</state>
-  </city>
-  <city>
-    <name>San Diego</name>
-    <state>California</state>
   </city>
 </data>

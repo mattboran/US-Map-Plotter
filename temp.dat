@@ -1,18 +1,18 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <queryresult success='true'
     error='false'
-    numpods='3'
-    datatypes='City'
+    numpods='7'
+    datatypes='City,Crime'
     timedout=''
     timedoutpods=''
-    timing='1.447'
-    parsetiming='0.589'
+    timing='2.714'
+    parsetiming='0.376'
     parsetimedout='false'
     recalculate=''
-    id='MSPa61201e8f3e81297dd2c700005bf840c570h6hbic'
+    id='MSPa30101gb3h87dbhi068de00005egf8e6di9322h1e'
     host='http://www3.wolframalpha.com'
-    server='5'
-    related='http://www3.wolframalpha.com/api/v2/relatedQueries.jsp?id=MSPa61211e8f3e81297dd2c7000013f9bh04430ccdb6&amp;s=5'
+    server='19'
+    related='http://www3.wolframalpha.com/api/v2/relatedQueries.jsp?id=MSPa30111gb3h87dbhi068de0000200hchad258bif02&amp;s=19'
     version='2.6'>
  <pod title='Input interpretation'
      scanner='Identity'
@@ -21,7 +21,7 @@
      error='false'
      numsubpods='1'>
   <subpod title=''>
-   <plaintext>Philadelphia, Pennsylvania | latitude</plaintext>
+   <plaintext>Philadelphia, Pennsylvania | rate of murder and nonnegligent manslaughter</plaintext>
   </subpod>
  </pod>
  <pod title='Result'
@@ -32,42 +32,107 @@
      numsubpods='1'
      primary='true'>
   <subpod title=''>
-   <plaintext>40° 34&quot;N</plaintext>
+   <plaintext>19.51 crimes per 100 000 people per year  (2009 estimate)</plaintext>
   </subpod>
-  <states count='1'>
-   <state name='Show decimal'
-       input='Result__Show decimal' />
-  </states>
  </pod>
- <pod title='Unit conversions'
+ <pod title='Unit conversion'
      scanner='Unit'
      id='UnitConversion'
      position='300'
      error='false'
-     numsubpods='5'>
+     numsubpods='1'>
   <subpod title=''>
-   <plaintext>698.3 mrad  (milliradians)</plaintext>
+   <plaintext>1.951×10^-4 crimes per person per year</plaintext>
+  </subpod>
+ </pod>
+ <pod title='Comparisons'
+     scanner='Data'
+     id='VerticalComparisons:MurderNonnegligentManslaughterRate:CrimeData'
+     position='400'
+     error='false'
+     numsubpods='3'>
+  <subpod title=''>
+   <plaintext>one crime per person every 5126 years</plaintext>
   </subpod>
   <subpod title=''>
-   <plaintext>0.6983 radians</plaintext>
+   <plaintext>3.6  ×  Pennsylvania average</plaintext>
   </subpod>
   <subpod title=''>
-   <plaintext>40 degrees 33.75 arc seconds</plaintext>
+   <plaintext>4.2  ×  national average</plaintext>
   </subpod>
+ </pod>
+ <pod title='Murder and nonnegligent manslaughter rate history'
+     scanner='Data'
+     id='History:MurderNonnegligentManslaughterRate:CrimeData'
+     position='500'
+     error='false'
+     numsubpods='1'>
   <subpod title=''>
-   <plaintext>2^h 40^m 2.25^s  (right ascension)</plaintext>
+   <plaintext></plaintext>
   </subpod>
-  <subpod title=''>
-   <plaintext>44.45 grads
- (unit officially deprecated)</plaintext>
-  </subpod>
-  <states count='1'>
-   <state name='More'
-       input='UnitConversion__More' />
+  <states count='2'>
+   <state name='Crimes'
+       input='History:MurderNonnegligentManslaughterRate:CrimeData__Crimes' />
+   <state name='Log scale'
+       input='History:MurderNonnegligentManslaughterRate:CrimeData__Log scale' />
   </states>
  </pod>
- <sources count='1'>
+ <pod title='Overall crime statistics'
+     scanner='Data'
+     id='CrimeInformation:MurderNonnegligentManslaughterRate:CrimeData'
+     position='600'
+     error='false'
+     numsubpods='1'>
+  <subpod title=''>
+   <plaintext>total rate of crime | 4850 crimes/100000 people/yr  (2009 estimate)
+total number of crimes | 75051 crimes per year  (2009 estimate)
+(UCR Part I offenses)</plaintext>
+  </subpod>
+  <states count='1'>
+   <state name='Show chart'
+       input='CrimeInformation:MurderNonnegligentManslaughterRate:CrimeData__Show chart' />
+  </states>
+  <infos count='1'>
+   <info>
+    <units count='1'>
+     <unit short='crimes/100000 people/yr'
+         long='crimes per 100 000 people per year' />
+    </units>
+   </info>
+  </infos>
+ </pod>
+ <pod title='Violent crime rates'
+     scanner='Data'
+     id='ViolentCrimeInformation:MurderNonnegligentManslaughterRate:CrimeData'
+     position='700'
+     error='false'
+     numsubpods='1'>
+  <subpod title=''>
+   <plaintext>robbery | 583.9 crimes/100000 people/yr  (2009 estimate)
+aggravated assault | 576.9 crimes/100000 people/yr  (2009 estimate)
+rape | 57.9 crimes/100000 people/yr  (2009 estimate)
+murder and nonnegligent manslaughter | 19.51 crimes/100000 people/yr  (2009 estimate)
+violent crime total | 1238 crimes/100000 people/yr  (2009 estimate)</plaintext>
+  </subpod>
+  <states count='2'>
+   <state name='Crimes'
+       input='ViolentCrimeInformation:MurderNonnegligentManslaughterRate:CrimeData__Crimes' />
+   <state name='Show chart'
+       input='ViolentCrimeInformation:MurderNonnegligentManslaughterRate:CrimeData__Show chart' />
+  </states>
+  <infos count='1'>
+   <info>
+    <units count='1'>
+     <unit short='crimes/100000 people/yr'
+         long='crimes per 100 000 people per year' />
+    </units>
+   </info>
+  </infos>
+ </pod>
+ <sources count='2'>
   <source url='http://www.wolframalpha.com/sources/CityDataSourceInformationNotes.html'
       text='City data' />
+  <source url='http://www.wolframalpha.com/sources/CrimeDataSourceInformationNotes.html'
+      text='Crime data' />
  </sources>
 </queryresult>
