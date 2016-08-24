@@ -3,6 +3,8 @@
     <name>New York</name>
     <state>New York</state>
     <murders>5.61</murders>
+    <latitude>40.39</latitude>
+    <longitude>73.56</longitude>
   </city>
   <city>
     <name>Gadsden</name>
@@ -13,10 +15,40 @@
     <name>Chicago</name>
     <state>Illinois</state>
     <murders>16.08</murders>
+    <latitude>41.50</latitude>
+    <longitude>87.40</longitude>
   </city>
   <city>
     <name>Los Angeles</name>
     <state>California</state>
     <murders>8.11</murders>
+    <latitude>34.1</latitude>
+    <longitude>118.24</longitude>
+  </city>
+  <city>
+    <name>Houston</name>
+    <state>Texas</state>
+    <latitude>29.46</latitude>
+    <longitude>95.23</longitude>
+    <murders>12.62</murders>
+  </city>
+  <city>
+    <name>Philadelphia</name>
+    <state>Pennsylvania</state>
+    <longitude>75.8</longitude>
+    <murders>19.51</murders>
+    <latitude>40.34</latitude>
+  </city>
+  <city>
+    <name>Phoenix</name>
+    <state>Arizona</state>
+  </city>
+  <city>
+    <name>San Antonio</name>
+    <state>Texas</state>
+  </city>
+  <city>
+    <name>San Diego</name>
+    <state>California</state>
   </city>
 </data>

@@ -11,9 +11,9 @@ http://api.wolframalpha.com/v2/query?appid=TT8EJW-E7K35T3VUA&input=murder%20rate
 
 '''
 
-import collections
+import collections, requests, re
+import unicodedata as unicode
 import lxml.etree as etree #includes XPath
-import requests 
 
 def read_city_names(fname):
 	#
@@ -95,9 +95,9 @@ def make_api_call(city, state, query, over_write):
 	if(query == 'murders'):
 		add_entry_to_city(city, query, murder_rate_from_file('temp.dat'), True)
 	elif(query == 'latitude'):
-		add_entry_to_city(city, query, latitude_longitude_from_file('temp.dat', 'latitude'), False) 
+		add_entry_to_city(city, query, latitude_longitude_from_file('temp.dat', 'latitude'), True) 
 	elif(query == 'longitude'):
-		add_entry_to_city(city, query, latitude_longitude_from_file('temp.dat', 'longitude'), False) 
+		add_entry_to_city(city, query, latitude_longitude_from_file('temp.dat', 'longitude'), True) 
 	
 	print('Adding property %s to cache' % (query))
 	
@@ -111,16 +111,14 @@ def make_many_api_calls(citylist, statelist, querylist, over_write):
 	
 	#error handling
 	if(len(citylist) != len(statelist)):
-		print('Citylist and statelist different lengths, please check format and try again.')
+		print('Citylist and statelist different lengths, please check format and try again.\n')
 		return False
-	if(len(querylist) > 1):
-		print('Making >1 query per each city, state pair.')
 	
 	for i in range(len(citylist)):
 		if(make_api_call(citylist[i], statelist[i], querylist, over_write)):
-			print('Successfully made API call.')
+			print('Successfully made API call.\n')
 		else:
-			print('Call failed.')
+			print('Call failed.\n')
 	
 def  murder_rate_from_file(fname):
 	#
@@ -144,26 +142,28 @@ def latitude_longitude_from_file(fname, lat_or_long):
 	#	This function requires you to have the correct file in place with correct lat/long data.
 	#	That is, it makes the assumption you know what's in the file
 	#
-	
+	parser = etree.XMLParser(remove_blank_text=True)
 	with open(fname, 'r') as f:
-		tree = etree.parse(f)
-	root = etree.getroot()
+		tree = etree.parse(f, parser)
+	root = tree.getroot()
 	location = ''
+	i = 0
 	for element in root.iter("plaintext"):
 		i += 1
 		if(i == 2):
-			loc = element.text.split(" ")
-			if(loc[0][2]=='°'):
-				location += loc[0][0:1]
-			elif(loc[0][3] == '°'):
-				location += loc[0][0:2]
+			loc = element.text.replace('\xc2', '')
+			loc = loc.split(" ")
+			position1 = loc[0].find('°')
+			position2 = loc[1].find('\'')
+			location += loc[0][0:position1]
 			location += '.'
-			if(loc[1][2]=='&'):
-				location += loc[1][0:1]
-			elif(loc[1][3] == '&'):
-				location += loc[1][0:2]
+			location += loc[1][0:position2]
 	
-
+	print('%s = %s' % (lat_or_long, location))
+	non_decimal = re.compile(r'[^\d.]+')
+	non_decimal.sub('', location)
+	return location
+	
 def check_cache(cityname, query):
 	#
 	#	This function checks cache.xml for an entry 'city' in 'cities', then goes to 'data' in 'city' and checks if there's an entry for 'query'

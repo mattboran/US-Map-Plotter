@@ -1,18 +1,18 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <queryresult success='true'
     error='false'
-    numpods='7'
-    datatypes='City,Crime'
+    numpods='3'
+    datatypes='City'
     timedout=''
     timedoutpods=''
-    timing='2.8930000000000002'
-    parsetiming='0.405'
+    timing='1.447'
+    parsetiming='0.589'
     parsetimedout='false'
     recalculate=''
-    id='MSPa30381hg86a87ea3ebfhb0000483ad65ii4041gd7'
+    id='MSPa61201e8f3e81297dd2c700005bf840c570h6hbic'
     host='http://www3.wolframalpha.com'
-    server='21'
-    related='http://www3.wolframalpha.com/api/v2/relatedQueries.jsp?id=MSPa30391hg86a87ea3ebfhb00003412e878237g9113&amp;s=21'
+    server='5'
+    related='http://www3.wolframalpha.com/api/v2/relatedQueries.jsp?id=MSPa61211e8f3e81297dd2c7000013f9bh04430ccdb6&amp;s=5'
     version='2.6'>
  <pod title='Input interpretation'
      scanner='Identity'
@@ -21,7 +21,7 @@
      error='false'
      numsubpods='1'>
   <subpod title=''>
-   <plaintext>Chicago, Illinois | rate of murder and nonnegligent manslaughter</plaintext>
+   <plaintext>Philadelphia, Pennsylvania | latitude</plaintext>
   </subpod>
  </pod>
  <pod title='Result'
@@ -32,107 +32,42 @@
      numsubpods='1'
      primary='true'>
   <subpod title=''>
-   <plaintext>16.08 crimes per 100 000 people per year  (2009 estimate)</plaintext>
+   <plaintext>40° 34&quot;N</plaintext>
   </subpod>
+  <states count='1'>
+   <state name='Show decimal'
+       input='Result__Show decimal' />
+  </states>
  </pod>
- <pod title='Unit conversion'
+ <pod title='Unit conversions'
      scanner='Unit'
      id='UnitConversion'
      position='300'
      error='false'
-     numsubpods='1'>
+     numsubpods='5'>
   <subpod title=''>
-   <plaintext>1.608×10^-4 crimes per person per year</plaintext>
-  </subpod>
- </pod>
- <pod title='Comparisons'
-     scanner='Data'
-     id='VerticalComparisons:MurderNonnegligentManslaughterRate:CrimeData'
-     position='400'
-     error='false'
-     numsubpods='3'>
-  <subpod title=''>
-   <plaintext>one crime per person every 6219 years</plaintext>
+   <plaintext>698.3 mrad  (milliradians)</plaintext>
   </subpod>
   <subpod title=''>
-   <plaintext>2.8  ×  Illinois average</plaintext>
+   <plaintext>0.6983 radians</plaintext>
   </subpod>
   <subpod title=''>
-   <plaintext>3.4  ×  national average</plaintext>
+   <plaintext>40 degrees 33.75 arc seconds</plaintext>
   </subpod>
- </pod>
- <pod title='Murder and nonnegligent manslaughter rate history'
-     scanner='Data'
-     id='History:MurderNonnegligentManslaughterRate:CrimeData'
-     position='500'
-     error='false'
-     numsubpods='1'>
   <subpod title=''>
-   <plaintext></plaintext>
+   <plaintext>2^h 40^m 2.25^s  (right ascension)</plaintext>
   </subpod>
-  <states count='2'>
-   <state name='Crimes'
-       input='History:MurderNonnegligentManslaughterRate:CrimeData__Crimes' />
-   <state name='Log scale'
-       input='History:MurderNonnegligentManslaughterRate:CrimeData__Log scale' />
-  </states>
- </pod>
- <pod title='Overall crime statistics'
-     scanner='Data'
-     id='CrimeInformation:MurderNonnegligentManslaughterRate:CrimeData'
-     position='600'
-     error='false'
-     numsubpods='1'>
   <subpod title=''>
-   <plaintext>total rate of crime | 5353 crimes/100000 people/yr  (2009 estimate)
-total number of crimes | 152469 crimes per year  (2009 estimate)
-(UCR Part I offenses)</plaintext>
+   <plaintext>44.45 grads
+ (unit officially deprecated)</plaintext>
   </subpod>
   <states count='1'>
-   <state name='Show chart'
-       input='CrimeInformation:MurderNonnegligentManslaughterRate:CrimeData__Show chart' />
+   <state name='More'
+       input='UnitConversion__More' />
   </states>
-  <infos count='1'>
-   <info>
-    <units count='1'>
-     <unit short='crimes/100000 people/yr'
-         long='crimes per 100 000 people per year' />
-    </units>
-   </info>
-  </infos>
  </pod>
- <pod title='Violent crime rates'
-     scanner='Data'
-     id='ViolentCrimeInformation:MurderNonnegligentManslaughterRate:CrimeData'
-     position='700'
-     error='false'
-     numsubpods='1'>
-  <subpod title=''>
-   <plaintext>robbery | 557.4 crimes/100000 people/yr  (2009 estimate)
-aggravated assault | 552.1 crimes/100000 people/yr  (2009 estimate)
-murder and nonnegligent manslaughter | 16.08 crimes/100000 people/yr  (2009 estimate)
-violent crime total | 1126 crimes/100000 people/yr  (2009 estimate)
-(forcible rape figures not available for some IL cities)</plaintext>
-  </subpod>
-  <states count='2'>
-   <state name='Crimes'
-       input='ViolentCrimeInformation:MurderNonnegligentManslaughterRate:CrimeData__Crimes' />
-   <state name='Show chart'
-       input='ViolentCrimeInformation:MurderNonnegligentManslaughterRate:CrimeData__Show chart' />
-  </states>
-  <infos count='1'>
-   <info>
-    <units count='1'>
-     <unit short='crimes/100000 people/yr'
-         long='crimes per 100 000 people per year' />
-    </units>
-   </info>
-  </infos>
- </pod>
- <sources count='2'>
+ <sources count='1'>
   <source url='http://www.wolframalpha.com/sources/CityDataSourceInformationNotes.html'
       text='City data' />
-  <source url='http://www.wolframalpha.com/sources/CrimeDataSourceInformationNotes.html'
-      text='Crime data' />
  </sources>
 </queryresult>
