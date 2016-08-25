@@ -5,14 +5,14 @@
     datatypes='City,Crime'
     timedout=''
     timedoutpods=''
-    timing='2.714'
-    parsetiming='0.376'
+    timing='2.898'
+    parsetiming='0.434'
     parsetimedout='false'
     recalculate=''
-    id='MSPa30101gb3h87dbhi068de00005egf8e6di9322h1e'
+    id='MSPa14611g0e53ie169203ig000054g45dii525c4998'
     host='http://www3.wolframalpha.com'
-    server='19'
-    related='http://www3.wolframalpha.com/api/v2/relatedQueries.jsp?id=MSPa30111gb3h87dbhi068de0000200hchad258bif02&amp;s=19'
+    server='23'
+    related='http://www3.wolframalpha.com/api/v2/relatedQueries.jsp?id=MSPa14621g0e53ie169203ig0000569b00762i8e87da&amp;s=23'
     version='2.6'>
  <pod title='Input interpretation'
      scanner='Identity'
@@ -21,7 +21,7 @@
      error='false'
      numsubpods='1'>
   <subpod title=''>
-   <plaintext>Philadelphia, Pennsylvania | rate of murder and nonnegligent manslaughter</plaintext>
+   <plaintext>Arlington, Texas | rate of murder and nonnegligent manslaughter</plaintext>
   </subpod>
  </pod>
  <pod title='Result'
@@ -32,7 +32,7 @@
      numsubpods='1'
      primary='true'>
   <subpod title=''>
-   <plaintext>19.51 crimes per 100 000 people per year  (2009 estimate)</plaintext>
+   <plaintext>3.17 crimes per 100 000 people per year  (2009 estimate)</plaintext>
   </subpod>
  </pod>
  <pod title='Unit conversion'
@@ -42,7 +42,7 @@
      error='false'
      numsubpods='1'>
   <subpod title=''>
-   <plaintext>1.951×10^-4 crimes per person per year</plaintext>
+   <plaintext>3.17×10^-5 crimes per person per year</plaintext>
   </subpod>
  </pod>
  <pod title='Comparisons'
@@ -52,13 +52,13 @@
      error='false'
      numsubpods='3'>
   <subpod title=''>
-   <plaintext>one crime per person every 5126 years</plaintext>
+   <plaintext>one crime per person every 31546 years</plaintext>
   </subpod>
   <subpod title=''>
-   <plaintext>3.6  ×  Pennsylvania average</plaintext>
+   <plaintext>0.72  ×  Texas average</plaintext>
   </subpod>
   <subpod title=''>
-   <plaintext>4.2  ×  national average</plaintext>
+   <plaintext>0.67  ×  national average</plaintext>
   </subpod>
  </pod>
  <pod title='Murder and nonnegligent manslaughter rate history'
@@ -84,8 +84,8 @@
      error='false'
      numsubpods='1'>
   <subpod title=''>
-   <plaintext>total rate of crime | 4850 crimes/100000 people/yr  (2009 estimate)
-total number of crimes | 75051 crimes per year  (2009 estimate)
+   <plaintext>total rate of crime | 6026 crimes/100000 people/yr  (2009 estimate)
+total number of crimes | 22846 crimes per year  (2009 estimate)
 (UCR Part I offenses)</plaintext>
   </subpod>
   <states count='1'>
@@ -108,11 +108,11 @@ total number of crimes | 75051 crimes per year  (2009 estimate)
      error='false'
      numsubpods='1'>
   <subpod title=''>
-   <plaintext>robbery | 583.9 crimes/100000 people/yr  (2009 estimate)
-aggravated assault | 576.9 crimes/100000 people/yr  (2009 estimate)
-rape | 57.9 crimes/100000 people/yr  (2009 estimate)
-murder and nonnegligent manslaughter | 19.51 crimes/100000 people/yr  (2009 estimate)
-violent crime total | 1238 crimes/100000 people/yr  (2009 estimate)</plaintext>
+   <plaintext>robbery | 177.3 crimes/100000 people/yr  (2009 estimate)
+aggravated assault | 394.1 crimes/100000 people/yr  (2009 estimate)
+rape | 40.09 crimes/100000 people/yr  (2009 estimate)
+murder and nonnegligent manslaughter | 3.17 crimes/100000 people/yr  (2009 estimate)
+violent crime total | 614.6 crimes/100000 people/yr  (2009 estimate)</plaintext>
   </subpod>
   <states count='2'>
    <state name='Crimes'

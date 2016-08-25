@@ -55,7 +55,7 @@ def make_api_call(city, state, query, over_write):
 	_query = query.split(' ')
 	for word in _query:
 		url += (word + '%20')
-	
+	url += 'in%20'
 	_city = city.split(' ')
 	for word in _city:
 		url += (word+'%20')
